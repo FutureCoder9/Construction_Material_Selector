@@ -1,0 +1,29 @@
+create_trigger.sql
+
+CREATE OR REPLACE TRIGGER Check_Total_Area
+BEFORE INSERT OR UPDATE ON Order_Finish
+FOR EACH ROW
+DECLARE
+    v_total_area NUMBER(10,2);
+    v_sum_area NUMBER(10,2);
+BEGIN
+    -- Calculate the current total area of finishes for the order
+    SELECT SUM(Area) INTO v_sum_area
+    FROM Order_Finish
+    WHERE Order_ID = :NEW.Order_ID;
+
+    -- Get the total area from the Orders table
+    SELECT Total_Area INTO v_total_area
+    FROM Orders
+    WHERE Order_ID = :NEW.Order_ID;
+
+    -- Add the new area to the sum if it's an INSERT operation
+    IF INSERTING THEN
+        v_sum_area := v_sum_area + :NEW.Area;
+    END IF;
+
+    -- Check if the total area matches
+    IF v_sum_area != v_total_area THEN
+        RAISE_APPLICATION_ERROR(-20001, 'The sum of all areas must equal the total area of the order.');
+    END IF;
+END;
