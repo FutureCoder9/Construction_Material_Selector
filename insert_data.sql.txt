@@ -1,0 +1,9 @@
+insert_data.sql
+
+
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (1, 'Not_specified');
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (2, 'Unfinished');
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (3, 'Basic');
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (4, 'Shell & Core');
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (5, 'white_box');
+INSERT INTO Finish_Type (Finish_Type_ID, Name) VALUES (6, 'Color');
